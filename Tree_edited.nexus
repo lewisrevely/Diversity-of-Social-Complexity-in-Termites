@@ -1,0 +1,115 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=52;
+	taxlabels 
+		Mastotermes_darwiniensis
+		Stolotermes_victoriensis
+		Porotermes_adamsoni
+		Zootermopsis_nevadensis
+		Anacanthotermes_ochraceus
+		Kalotermes_flavicollis
+		Neotermes_sanctaecrucis
+		Postelectrotermes_militaris
+		Incisitermes_milleri
+		Pterotermes_occidentis
+		Marginitermes_hubbardi
+		Cryptotermes_cynocephalus
+		Procryptotermes_falcifer
+		Bifiditermes_durbanensis
+		Glyptotermes_brevicornis
+		Calcaritermes_emarginicollis
+		Paraneotermes_simplicornis
+		Termitogeton_planus
+		Psammotermes_hybostoma
+		Prorhinotermes_inopinatus
+		Ancistrotermes_crucifer
+		Microtermes_magnocellus
+		Odontotermes_transvaalensis
+		Macrotermes_michaelseni
+		Pseudacanthotermes_militaris
+		Astalotermes_quietus
+		Astalotermes_brevior
+		Acidnotermes_praus
+		Anoplotermes_pacificus
+		Duplidentitermes_furcatidens
+		Apicotermes_tragardhi
+		Pericapritermes_nigerianus
+		Dicuspiditermes_nemorosus
+		Microcerotermes_parvus
+		Neocapritermes_parvus
+		Syntermes_grandis
+		Labiotermes_labralis
+		Cephalotermes_rectangularis
+		Amitermes_meridionalis
+		Cubitermes_tenuiceps
+		Noditermes_indoensis
+		Thoracotermes_macrothorax
+		Baucaliotermes_hainesi
+		Tenuirostritermes_tenuirostris
+		Nasutitermes_arborum
+		Bulbitermes_singaporiensis
+		Hospitalitermes_hospitalis
+		Constrictotermes_cyphergaster
+		Trinervitermes_bettonianus
+		Heterotermes_tenuior
+		Coptotermes_acinaciformis
+		Reticulitermes_lucifugus
+		;
+end;
+begin trees;
+	translate 
+		1 Mastotermes_darwiniensis,
+		2 Stolotermes_victoriensis,
+		3 Porotermes_adamsoni,
+		4 Zootermopsis_nevadensis,
+		5 Anacanthotermes_ochraceus,
+		6 Kalotermes_flavicollis,
+		7 Neotermes_sanctaecrucis,
+		8 Postelectrotermes_militaris,
+		9 Incisitermes_milleri,
+		10 Pterotermes_occidentis,
+		11 Marginitermes_hubbardi,
+		12 Cryptotermes_cynocephalus,
+		13 Procryptotermes_falcifer,
+		14 Bifiditermes_durbanensis,
+		15 Glyptotermes_brevicornis,
+		16 Calcaritermes_emarginicollis,
+		17 Paraneotermes_simplicornis,
+		18 Termitogeton_planus,
+		19 Psammotermes_hybostoma,
+		20 Prorhinotermes_inopinatus,
+		21 Ancistrotermes_crucifer,
+		22 Microtermes_magnocellus,
+		23 Odontotermes_transvaalensis,
+		24 Macrotermes_michaelseni,
+		25 Pseudacanthotermes_militaris,
+		26 Astalotermes_quietus,
+		27 Astalotermes_brevior,
+		28 Acidnotermes_praus,
+		29 Anoplotermes_pacificus,
+		30 Duplidentitermes_furcatidens,
+		31 Apicotermes_tragardhi,
+		32 Pericapritermes_nigerianus,
+		33 Dicuspiditermes_nemorosus,
+		34 Microcerotermes_parvus,
+		35 Neocapritermes_parvus,
+		36 Syntermes_grandis,
+		37 Labiotermes_labralis,
+		38 Cephalotermes_rectangularis,
+		39 Amitermes_meridionalis,
+		40 Cubitermes_tenuiceps,
+		41 Noditermes_indoensis,
+		42 Thoracotermes_macrothorax,
+		43 Baucaliotermes_hainesi,
+		44 Tenuirostritermes_tenuirostris,
+		45 Nasutitermes_arborum,
+		46 Bulbitermes_singaporiensis,
+		47 Hospitalitermes_hospitalis,
+		48 Constrictotermes_cyphergaster,
+		49 Trinervitermes_bettonianus,
+		50 Heterotermes_tenuior,
+		51 Coptotermes_acinaciformis,
+		52 Reticulitermes_lucifugus
+		;
+	tree tree1 = [&r](1:0.601522,(((2:0.023273,3:0.37369):0.073877,(4:0.229535,5:0.229535):0.073877):0.038462,((6:0.168268,(((7:0.281949,8:0.135357):0.014713,((((9:0.113159,10:0.113159):0.019612,11:0.113159):0.019612,(12:0.158727,13:0.105347):0.061718):0.019612,14:0.167714):0.00774):0.021842,((15:0.130417,16:0.164322):0.018596,17:0.1473695):0.018596):0.037572):0.041295,(18:0.268199,((19:0.09902,20:0.213144):0.030505,(((21:0.07532,22:0.065954):0.045574,(((23:0.139925,24:0.082355):0.017206,25:0.124914):0.028517,(((((((26:0.278096,27:0.278096):0.043805,28:0.278096):0.043805,29:0.278096):0.043805,30:0.278096):0.043805,31:0.278096):0.043805,(32:0.100275,33:0.123771):0.0307):0.043805,((34:0.129644,35:0.118197):0.00908,(((36:0.102852,37:0.12509):0.040113,38:0.109488):0.009266,(39:0.161856,(((40:0.073663,41:0.073663):0.043975,42:0.099971):0.043975,(43:0.106789,(44:0.106789,(45:0.106789,((46:0.097669,(47:0.070534,48:0.094773):0.020076):0.017282,49:0.137654):0.011097):0.02455):0.005356):0.005356):0.005356):0.003971):0.010217):0.021795):0.047614):0.051057):0.034767,((50:0.118779,51:0.074967):0.027051,52:0.127696):0.01024):0.02133):0.033429):0.107685):0.018436):0.156805);
+end;
