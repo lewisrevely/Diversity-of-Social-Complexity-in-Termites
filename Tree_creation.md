@@ -1,7 +1,7 @@
 Tree Creation
 ================
 
-\## packages
+## packages
 
 ``` r
 library(RRphylo)
