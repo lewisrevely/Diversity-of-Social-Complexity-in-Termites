@@ -7,6 +7,6 @@ Scripts for this project:
 
 1) [Phylogeny creation](https://github.com/lewisrevely/Diversity-of-Social-Complexity-in-Termites/blob/main/Tree_creation.md)
 2) [Figure 2 creation](https://github.com/lewisrevely/Diversity-of-Social-Complexity-in-Termites/blob/main/Figure_2_creation.md)
-3) [DBscan]
+3) [DBscan](https://github.com/lewisrevely/Diversity-of-Social-Complexity-in-Termites/blob/main/DBscan.md)
 4) [Phylogenetic MANOVA](https://github.com/lewisrevely/Diversity-of-Social-Complexity-in-Termites/blob/main/Phylogenetic_MANOVA.md)
 5) [MCMCglmm with Figure 3 creation](https://github.com/lewisrevely/Diversity-of-Social-Complexity-in-Termites/tree/main/MCMCglmm.md)
