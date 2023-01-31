@@ -46,17 +46,13 @@ p1 <- gheatmap(circ, df, offset=0, width=.25,
                colnames_angle=90, colnames_offset_y = .01,font.size=2)
 ```
 
-    ## Warning: attributes are not identical across measure variables;
-    ## they will be dropped
+
 
 ``` r
 ## Change the colours to be better in black and white if need be 
 
 p2<-p1 + scale_fill_viridis(discrete = TRUE, name = "Complexity level", labels =c('Low','','','','','','','','High'), direction = -1, option= "C")
 ```
-
-    ## Scale for fill is already present.
-    ## Adding another scale for fill, which will replace the existing scale.
 
 ``` r
 plot(p2)
