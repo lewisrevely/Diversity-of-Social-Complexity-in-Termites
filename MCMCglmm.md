@@ -155,14 +155,14 @@ summary2<-rbind(summary,summary1)
 ##Create the plot 
 p<-summary2%>%
   mutate(Low= `5%` ,High=`95%`) %>%
-  ggplot(aes(x= Traits , y=mean, color= Traits, shape = response)) + 
+  ggplot(aes(x= Traits , y=mean, shape = response)) + 
   geom_point(position = position_dodge(0.5), size = 3) +
   geom_errorbar(aes(ymin=Low,ymax=High),width=0.1,position = position_dodge(0.5), size= 1)+
-  ggtitle("MCMCglmm")+
+  ylab("Effect")+
+  scale_x_discrete(labels = c("Colony Size", "Helper Polymorphism", "Nest Complexity"))+
   geom_hline(yintercept = 0, linetype="dotted")+
   theme_classic()
-p2<-  p + scale_color_manual(values=c("#D85859", "#FCB76F", "#E88766"))
 
 
-ggsave(p2, filename='CL_chained_overlap_plot.pdf')
+ggsave(p, filename='CL_chained_overlap_plot.pdf')
 ```
