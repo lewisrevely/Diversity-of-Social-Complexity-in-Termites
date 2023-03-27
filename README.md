@@ -1,7 +1,7 @@
 # Diversity-of-Social-Complexity-in-Termites
 Repository for the scripts and data produced from the paper titled "Diversity of Social Complexity in Termites"
 
-Data can be found in The [Raw-data](https://github.com/lewisrevely/Diversity-of-Social-Complexity-in-Termites/tree/main/raw-data) folder
+Data and relevent citation docs can be found in The [Raw-data](https://github.com/lewisrevely/Diversity-of-Social-Complexity-in-Termites/tree/main/raw-data) folder
 
 Scripts for this project:
 
