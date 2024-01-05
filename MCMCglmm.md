@@ -1,7 +1,8 @@
 MCMCglmm & figure 3 Creation
 ================
 
-## packages
+## Load Required Packages
+Load libraries necessary for data manipulation, phylogenetic analysis, and MCMCglmm.
 
 ``` r
 library(tidyverse)
@@ -12,73 +13,63 @@ library(MCMCglmm)
 library(coda)
 ```
 
-## Import data and Phylogeny
+## Import Data and Phylogeny
+Import trait data and the species phylogenetic tree.
 
 ``` r
 cdata <- read.csv("Traitdata.csv", row.names = 1)
 species.tree<- read.tree("Species_tree.nexus")
 ```
 
-### Formatting phylogeny and data for the analysis
+### Formatting Phylogeny and Data for Analysis
+Prepare data and phylogeny for compatibility and analysis.
 
 ``` r
-# modify the data for this analysis
-cdata$Species<- rownames(cdata)
-cdata$tiplabel<-cdata$Species
-cdata$genus <- sapply(strsplit(cdata$Species, split = "*_"), "[[", 1)
-# remove species which do not appear in the phylogeny
+# Add species and genus information to the data
+cdata$Species <- rownames(cdata)
+cdata$tiplabel <- cdata$Species
+cdata$genus <- sapply(strsplit(cdata$Species, split = "_"), "[[", 1)
+
+# Exclude species not present in the phylogeny
 cdata <- cdata[rownames(cdata) %in% species.tree$tip.label, ]
 
-# Combine and match the tree and data
-data <- make.treedata(tree = species.tree,  data = cdata, 
-                           name_column = "tiplabel")
+# Combine tree and data ensuring they match
+data <- make.treedata(tree = species.tree, data = cdata, name_column = "tiplabel")
 
-# Look at the tree
+# Visual inspection of the tree and data
 data$phy
-
-
-# Look at the data
 glimpse(data$dat)
 
-# Make a new column called tiplabel with the tip labels in it
-data$dat$tiplabel <- data$phy$tip.label
-# Force mydata to be a data frame
+# Prepare the data frame for analysis and clean up the phylogenetic tree
 mydata <- as.data.frame(data$dat)
-# Save tree as mytree
+mydata$tiplabel <- data$phy$tip.label
 mytree <- data$phy
-
-# Remove zero length branches and replace with polytomies
-mytree2 <- di2multi(mytree)
-# Remove node labels 
-mytree2$node.label <- NULL
-# Get the inverse vcv matrix for the phylogeny
-inv.phylo <- inverseA(mytree2, nodes = "TIPS", scale = FALSE)$Ainv
+mytree2 <- di2multi(mytree)  # Convert zero length branches to polytomies
+mytree2$node.label <- NULL   # Remove node labels
+inv.phylo <- inverseA(mytree2, nodes = "TIPS", scale = FALSE)$Ainv  # Inverse vcv matrix for phylogeny
 ```
 
-## Setting up and running the MCMCglmm
+## Setup and Run MCMCglmm
+
+Configure and execute the MCMCglmm model for analysis.
 
 ``` r
-# Set up priors for MCMCglmm.
-# weakly informative gelmon prior for fixed effects and inverse wishart for random effects. Variance=1 as it cannot be estimated for binary data
+# Define priors for MCMCglmm - Gelman prior for fixed effects and inverse Wishart for random effects (variance set to 1 since it is binary data)
 gelmanprior<-list(B=list(mu=c(0,0,0,0),V=gelman.prior(~CS+HM+NC, data=mydata,
                                                       scale=1+1+pi^2/3)), R=list(V=1,fix=1),G=list(G1=list(V=diag(1)*0.1, nu=1)))
 
-
-
-
-  
-#universal priors  
+# Set parameters for MCMCglmm 
 nitt <- 100000
 thin <- 50
 burnin <- 5000
 
-plot(1:5,1:5)
 
+# Convert factors for the model
 mydata$WF<- as.factor(mydata$WF)
 mydata$OS<-as.factor(mydata$OS)
 
 
-# Fit MCMCglmm model for binary, rerun three times eg model_mcmcglmm,1,2 
+# Fit the MCMCglmm model  
 model_mcmcglmm <- MCMCglmm(OS~CS+NC+HM, 
                            data = mydata, 
                            random = ~ tiplabel,
@@ -91,30 +82,29 @@ model_mcmcglmm <- MCMCglmm(OS~CS+NC+HM,
 ```
 
 ## diagnostics
+Assess the model's performance and diagnostics.
 
 ``` r
-# Plot model diagnostics for MCMCglmm
-# For fixed effects
+# Plot model diagnostics for fixed effects
 plot(model_mcmcglmm$Sol)  
 
 plot(model_mcmcglmm$VCV)  
 
+# Evaluate effective size and check for autocorrelation
 effectiveSize(model_mcmcglmm$Sol[, 1:model_mcmcglmm$Fixed$nfl, 
                                  drop = FALSE])[[1]]
-
-# Look for autocorrelation
 autocorr(model_mcmcglmm$VCV)
 
-# Look at summary of fixed effect results
+# Summary of fixed effect results
 summary(model_mcmcglmm)
 
-## bring together the model chains to test for convergence using gelman.plot
+# Convergence diagnostics using Gelman plots
 listmc <- mcmc.list(model_mcmcglmm$Sol,model_mcmcglmm1$Sol,model_mcmcglmm2$Sol)
 gelman.plot(listmc)
 gelman.diag(listmc)
 summary(listmc)
 
-#bring together the chains and create a matrix of results to use for making fig3
+# Compile model chains for figure creation
 dfmc <- rbind.data.frame(model_mcmcglmm$Sol,model_mcmcglmm1$Sol,model_mcmcglmm2$Sol)
 
 sumtable<-apply(dfmc,2,quantile, probs=c(0.05,0.95))
@@ -125,35 +115,32 @@ effect<-effectiveSize(listmc)
 WF_chain_summary<-t(rbind(mean,sumtable,effect))
 ```
 
-## Figure 3 creation
+## Create Figure 3
 
-Using the model results from the OS and WF runs we can create figure 3
+Generate a visual representation of the model results.
 
 ``` r
-##Bring the two runs back and extract the relevant parts 
+# Combine model results for figure creation
 OS_chain_summary<-readRDS("OS_MCMCglmm_results.rda")
 WF_chain_summary<-readRDS("WF_MCMCglmm_results.rda")
 mod1<-OS_chain_summary
 mod2<-WF_chain_summary
 
 
-##For the Obligate sterility run create a summary table of the results 
-
+# Prepare summary data for plotting
 summary<-mod1[-1,]
 summary<-as.data.frame(summary)
 summary$Traits<-rownames(summary)
 summary$response<-rep('Obligate Sterility',3)
 
-
-##For the Foraging run create a summary table of the results
 summary1<-mod2[-1,]
 summary1<-as.data.frame(summary1)
 summary1$Traits<-rownames(summary1)
 summary1$response<-rep('Foraging',3)
-##Merge together so that we have one dataset of results with effect size and confidence limits
+
 summary2<-rbind(summary,summary1)
 
-##Create the plot 
+# Plot the results 
 p<-summary2%>%
   mutate(Low= `5%` ,High=`95%`) %>%
   ggplot(aes(x= Traits , y=mean, shape = response)) + 
@@ -164,6 +151,6 @@ p<-summary2%>%
   geom_hline(yintercept = 0, linetype="dotted")+
   theme_classic()
 
-
+# save the plot
 ggsave(p, filename='CL_chained_overlap_plot.pdf')
 ```
