@@ -58,7 +58,8 @@ inv.phylo <- inverseA(mytree2, nodes = "TIPS", scale = FALSE)$Ainv
 ## Setting up and running the MCMCglmm
 
 ``` r
-# Set up priors for MCMCglmm
+# Set up priors for MCMCglmm.
+# weakly informative gelmon prior for fixed effects and inverse wishart for random effects. Variance=1 as it cannot be estimated for binary data
 gelmanprior<-list(B=list(mu=c(0,0,0,0),V=gelman.prior(~CS+HM+NC, data=mydata,
                                                       scale=1+1+pi^2/3)), R=list(V=1,fix=1),G=list(G1=list(V=diag(1)*0.1, nu=1)))
 
