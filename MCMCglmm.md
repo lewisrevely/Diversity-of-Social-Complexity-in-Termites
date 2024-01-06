@@ -73,8 +73,8 @@ mydata$OS<-as.factor(mydata$OS)
 model_mcmcglmm <- MCMCglmm(OS~CS+NC+HM, 
                            data = mydata, 
                            random = ~ tiplabel,
-                           family = "threshold",
-                           ginverse = list(tiplabel = inv.phylo), 
+                           family = "threshold", # Can change depending on response variable
+                           ginverse = list(tiplabel = inv.phylo), # accounting for phylogeny
                            prior = gelmanprior,
                            nitt = nitt, thin = thin, burnin = burnin,
                            verbose = TRUE,
