@@ -140,7 +140,7 @@ summary1$response<-rep('Foraging',3)
 
 summary2<-rbind(summary,summary1)
 
-# Plot the results 
+# Plot the results
 p<-summary2%>%
   mutate(Low= `5%` ,High=`95%`) %>%
   ggplot(aes(x= Traits , y=mean, shape = response)) + 
@@ -154,3 +154,4 @@ p<-summary2%>%
 # save the plot
 ggsave(p, filename='CL_chained_overlap_plot.pdf')
 ```
+The plot shows the effect size of traits on a certain response variable with error bars indicating significance of effect dependant on overlap with y=0
