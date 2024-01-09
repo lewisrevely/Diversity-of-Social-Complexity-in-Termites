@@ -65,7 +65,7 @@ burnin <- 5000
 
 
 # Convert factors for the model
-mydata$WF<- as.factor(mydata$WF)
+mydata$WF<- as.factor(mydata$FS)
 mydata$OS<-as.factor(mydata$OS)
 
 
@@ -122,7 +122,7 @@ Generate a visual representation of the model results.
 ``` r
 # Combine model results for figure creation
 OS_chain_summary<-readRDS("OS_MCMCglmm_results.rda")
-WF_chain_summary<-readRDS("WF_MCMCglmm_results.rda")
+WF_chain_summary<-readRDS("FS_MCMCglmm_results.rda")
 mod1<-OS_chain_summary
 mod2<-WF_chain_summary
 
@@ -136,7 +136,7 @@ summary$response<-rep('Obligate Sterility',3)
 summary1<-mod2[-1,]
 summary1<-as.data.frame(summary1)
 summary1$Traits<-rownames(summary1)
-summary1$response<-rep('Foraging',3)
+summary1$response<-rep('Functional Sterility',3)
 
 summary2<-rbind(summary,summary1)
 
@@ -147,7 +147,7 @@ p<-summary2%>%
   geom_point(position = position_dodge(0.5), size = 3) +
   geom_errorbar(aes(ymin=Low,ymax=High),width=0.1,position = position_dodge(0.5), size= 1)+
   ylab("Effect")+
-  scale_x_discrete(labels = c("Colony Size", "Helper Polymorphism", "Nest Complexity"))+
+  scale_x_discrete(labels = c("Colony Size", "Helper Polyphenism", "Nest Complexity"))+
   geom_hline(yintercept = 0, linetype="dotted")+
   theme_classic()
 
